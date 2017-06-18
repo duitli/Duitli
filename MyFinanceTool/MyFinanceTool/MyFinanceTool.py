@@ -4,16 +4,23 @@ import pandas as pd
 import urllib.request as re
 import pandas_datareader as web
 import datetime
-
+import matplotlib.pyplot as plt
 
 def main():
     a = 1 
 
     start = datetime.datetime(2016,1,1)
     end = datetime.date.today()
-    aplOption = web.Options("AAPL", "yahoo")
+    aplOption = web.get_data_google("AAOI",start, end)
     apple = web.get_data_google("AAPL",start, end)
-
+    
+    fig = plt.figure(1)
+    plt.subplot(211)
+    plt.plot(aplOption.index.values, aplOption.Close)
+    plt.title('Close Price for AAOI')
+    plt.subplot(212)
+    hist1 = plt.bar(aplOption.index.values,aplOption.Volume)
+    plt.show()
     print (apple.head())
     
 
